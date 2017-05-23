@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Led Page</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <h2 text-center>Brightness</h2>
+  <ion-range min="0" max="1023" pin="true" [(ngModel)]="brightness" color="secondary" (ionChange)="slide($event)">
+    <ion-icon range-left small name="sunny"></ion-icon>
+    <ion-icon range-right name="sunny"></ion-icon>
+  </ion-range>
+  <p text-center>{{brightness}}</p>
+</ion-content>

@@ -15,3 +15,4 @@ ionic link
 ionic upload
 
 ionic g page home
+ionic g page led
