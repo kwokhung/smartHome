@@ -10,7 +10,7 @@ import { Paho } from 'ng2-mqtt/mqttws31';
   templateUrl: 'led.html',
 })
 export class LedPage {
-  contrast: number = 0;
+  blueBrightness: number = 0;
   message: string;
   client: any;
 
@@ -28,16 +28,16 @@ export class LedPage {
 
       this.message = message.payloadString;
 
-      let contrast: number = Number(this.message);
+      let blueBrightness: number = Number(this.message);
 
-      if (contrast >= 0 && contrast <= 1023) {
-        this.contrast = contrast;
+      if (blueBrightness >= 0 && blueBrightness <= 1023) {
+        this.blueBrightness = blueBrightness;
       }
-      else if (contrast < 0) {
-        this.contrast = 0;
+      else if (blueBrightness < 0) {
+        this.blueBrightness = 0;
       }
-      else if (contrast > 1023) {
-        this.contrast = 1023;
+      else if (blueBrightness > 1023) {
+        this.blueBrightness = 1023;
       }
     };
 
@@ -89,7 +89,7 @@ export class LedPage {
     console.log('ionViewDidLoad LedPage');
   }
 
-  slide(event) {
+  blueSlide(event) {
     console.log(event);
 
     let message: any = new Paho.MQTT.Message(String(event.value));

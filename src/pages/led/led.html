@@ -8,7 +8,8 @@
 </ion-header>
 <ion-content padding>
   <h2 text-center>Brightness</h2>
-  <ion-range min="0" max="1023" pin="true" [(ngModel)]="brightness" color="secondary" (ionChange)="slide($event)">
+  <h3>Blue</h3>
+  <ion-range min="0" max="1023" pin="true" [(ngModel)]="blueBrightness" color="secondary" (ionChange)="blueSlide($event)">
     <ion-icon range-left small name="sunny"></ion-icon>
     <ion-icon range-right name="sunny"></ion-icon>
   </ion-range>
