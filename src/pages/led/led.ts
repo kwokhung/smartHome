@@ -10,6 +10,8 @@ import { Paho } from 'ng2-mqtt/mqttws31';
   templateUrl: 'led.html',
 })
 export class LedPage {
+  redBrightness: number = 0;
+  greenBrightness: number = 0;
   blueBrightness: number = 0;
   message: string;
   client: any;
@@ -87,6 +89,24 @@ export class LedPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LedPage');
+  }
+
+  redSlide(event) {
+    console.log(event);
+
+    let message: any = new Paho.MQTT.Message(String(event.value));
+    message.destinationName = "nodemcu01";
+
+    this.client.send(message);
+  }
+
+  greenSlide(event) {
+    console.log(event);
+
+    let message: any = new Paho.MQTT.Message(String(event.value));
+    message.destinationName = "nodemcu01";
+
+    this.client.send(message);
   }
 
   blueSlide(event) {
