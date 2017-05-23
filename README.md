@@ -12,6 +12,7 @@ git clone https://github.com/kwokhung/smartHome.git
 ionic start smartHome blank
 ionic serve
 
+ionic login
 ionic link
 ionic upload
 
@@ -20,3 +21,6 @@ ionic g page led
 
 ionic cordova platform add android
 ionic cordova build android --prod --release
+
+phonegap remote login
+phonegap remote build android
