@@ -40,8 +40,10 @@ export class LedPage {
       }
 
       let greenBrightness: number = this.blueBrightness;
+      this.greenBrightness = greenBrightness;
 
       let redBrightness: number = this.blueBrightness;
+      this.redBrightness = redBrightness;
     };
 
     this.client.onMessageDelivered = (message) => {
@@ -98,7 +100,7 @@ export class LedPage {
     let message: any = new Paho.MQTT.Message(String(event.value));
     message.destinationName = "nodemcu01";
 
-    this.client.send(message);
+    //this.client.send(message);
   }
 
   greenSlide(event) {
@@ -107,7 +109,7 @@ export class LedPage {
     let message: any = new Paho.MQTT.Message(String(event.value));
     message.destinationName = "nodemcu01";
 
-    this.client.send(message);
+    //this.client.send(message);
   }
 
   blueSlide(event) {
