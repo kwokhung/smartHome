@@ -10,11 +10,10 @@ import { Paho } from 'ng2-mqtt/mqttws31';
   templateUrl: 'led.html',
 })
 export class LedPage {
+  client: any;
   redBrightness: number = 0;
   greenBrightness: number = 0;
   blueBrightness: number = 0;
-  message: string;
-  client: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.client = new Paho.MQTT.Client("mbltest01.mqtt.iot.gz.baidubce.com", Number("8884"), "/mqtt", "DeviceId-s42mw9zs48");
@@ -28,9 +27,7 @@ export class LedPage {
       console.log("onMessageArrived: " + message.payloadString);
       console.log(message);
 
-      this.message = message.payloadString;
-
-      let blueBrightness: number = Number(this.message);
+      let blueBrightness: number = Number(message.payloadString);
 
       if (blueBrightness >= 0 && blueBrightness <= 1023) {
         this.blueBrightness = blueBrightness;
@@ -41,6 +38,10 @@ export class LedPage {
       else if (blueBrightness > 1023) {
         this.blueBrightness = 1023;
       }
+
+      let greenBrightness: number = this.blueBrightness;
+
+      let redBrightness: number = this.blueBrightness;
     };
 
     this.client.onMessageDelivered = (message) => {
