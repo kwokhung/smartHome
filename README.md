@@ -3,6 +3,7 @@ npm install -g cordova
 npm install -g phonegap
 npm install -g ionic
 npm install --save-dev typescript @ionic/cli-plugin-ionic-angular @ionic/cli-plugin-cordova
+npm install --save ng2-mqtt
 
 ionic info
 
