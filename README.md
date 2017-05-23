@@ -13,3 +13,5 @@ ionic serve
 
 ionic link
 ionic upload
+
+ionic g page home
