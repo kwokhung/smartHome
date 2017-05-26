@@ -71,7 +71,7 @@ export class LedPage {
           }
         });
 
-        let message: any = new Paho.MQTT.Message("Hello");
+        let message: any = new Paho.MQTT.Message("{\"RVALUE\":0,\"GVALUE\":0,\"BVALUE\":0}");
         message.destinationName = "nodemcu01";
 
         this.client.send(message);
