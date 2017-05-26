@@ -9,19 +9,19 @@
 <ion-content padding>
   <h2 text-center>Brightness</h2>
   <h3>Red</h3>
-  <ion-range min="0" max="1023" pin="true" [(ngModel)]="redBrightness" color="secondary" (ionChange)="redSlide($event)">
+  <ion-range min="0" max="1023" pin="true" [(ngModel)]="redBrightness" color="secondary" (ionChange)="slide($event)">
     <ion-icon range-left small name="sunny"></ion-icon>
     <ion-icon range-right name="sunny"></ion-icon>
   </ion-range>
   <p text-center>{{redBrightness}}</p>
   <h3>Green</h3>
-  <ion-range min="0" max="1023" pin="true" [(ngModel)]="greenBrightness" color="secondary" (ionChange)="greenSlide($event)">
+  <ion-range min="0" max="1023" pin="true" [(ngModel)]="greenBrightness" color="secondary" (ionChange)="slide($event)">
     <ion-icon range-left small name="sunny"></ion-icon>
     <ion-icon range-right name="sunny"></ion-icon>
   </ion-range>
   <p text-center>{{greenBrightness}}</p>
   <h3>Blue</h3>
-  <ion-range min="0" max="1023" pin="true" [(ngModel)]="blueBrightness" color="secondary" (ionChange)="blueSlide($event)">
+  <ion-range min="0" max="1023" pin="true" [(ngModel)]="blueBrightness" color="secondary" (ionChange)="slide($event)">
     <ion-icon range-left small name="sunny"></ion-icon>
     <ion-icon range-right name="sunny"></ion-icon>
   </ion-range>

@@ -2,6 +2,12 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Paho } from 'ng2-mqtt/mqttws31';
 
+interface BrightnessParameter {
+  RVALUE: number;
+  GVALUE: number;
+  BVALUE: number;
+}
+
 @IonicPage({
   name: 'LedPage'
 })
@@ -94,28 +100,16 @@ export class LedPage {
     console.log('ionViewDidLoad LedPage');
   }
 
-  redSlide(event) {
+  slide(event) {
     console.log(event);
 
-    let message: any = new Paho.MQTT.Message(String(event.value));
-    message.destinationName = "nodemcu01";
+    let brightness: BrightnessParameter = {
+      RVALUE: this.redBrightness,
+      GVALUE: this.greenBrightness,
+      BVALUE: this.blueBrightness
+    };
 
-    //this.client.send(message);
-  }
-
-  greenSlide(event) {
-    console.log(event);
-
-    let message: any = new Paho.MQTT.Message(String(event.value));
-    message.destinationName = "nodemcu01";
-
-    //this.client.send(message);
-  }
-
-  blueSlide(event) {
-    console.log(event);
-
-    let message: any = new Paho.MQTT.Message(String(event.value));
+    let message: any = new Paho.MQTT.Message(JSON.stringify(brightness));
     message.destinationName = "nodemcu01";
 
     this.client.send(message);
