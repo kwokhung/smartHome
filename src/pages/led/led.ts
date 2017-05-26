@@ -33,23 +33,11 @@ export class LedPage {
       console.log("onMessageArrived: " + message.payloadString);
       console.log(message);
 
-      let blueBrightness: number = Number(message.payloadString);
+      let brightness: BrightnessParameter = JSON.parse(message.payloadString);
 
-      if (blueBrightness >= 0 && blueBrightness <= 1023) {
-        this.blueBrightness = blueBrightness;
-      }
-      else if (blueBrightness < 0) {
-        this.blueBrightness = 0;
-      }
-      else if (blueBrightness > 1023) {
-        this.blueBrightness = 1023;
-      }
-
-      let greenBrightness: number = this.blueBrightness;
-      this.greenBrightness = greenBrightness;
-
-      let redBrightness: number = this.blueBrightness;
-      this.redBrightness = redBrightness;
+      this.redBrightness = this.constraint(brightness.RVALUE);
+      this.greenBrightness = this.constraint(brightness.GVALUE);
+      this.blueBrightness = this.constraint(brightness.BVALUE);
     };
 
     this.client.onMessageDelivered = (message) => {
@@ -98,6 +86,18 @@ export class LedPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LedPage');
+  }
+
+  constraint(brightness: number): number {
+    if (brightness >= 0 && brightness <= 1023) {
+      return brightness;
+    }
+    else if (brightness < 0) {
+      return 0;
+    }
+    else if (brightness > 1023) {
+      return 1023;
+    }
   }
 
   slide(event) {
