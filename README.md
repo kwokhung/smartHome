@@ -1,3 +1,5 @@
+npm install –g gulp
+npm install –g typings
 npm install -g typescript
 npm install -g cordova
 npm install -g phonegap
@@ -24,3 +26,9 @@ ionic cordova build android --prod --release
 
 phonegap remote login
 phonegap remote build android
+
+# barcode scanner
+ionic cordova plugin add phonegap-plugin-barcodescanner
+npm install --save @ionic-native/barcode-scanner
+npm install @ionic-native/core --save
+cordova platform update android
