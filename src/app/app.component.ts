@@ -26,6 +26,7 @@ export class MyApp {
     this.appMenuItems = [
       { title: 'Home', component: 'HomePage', icon: 'home' },
       { title: 'Led', component: 'LedPage', icon: 'sunny' },
+      { title: 'Scan', component: 'ScanPage', icon: 'qr-scanner' }
     ];
   }
 

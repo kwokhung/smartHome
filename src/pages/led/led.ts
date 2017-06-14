@@ -114,4 +114,5 @@ export class LedPage {
 
     this.client.send(message);
   }
+
 }
