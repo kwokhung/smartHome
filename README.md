@@ -4,6 +4,7 @@ npm install -g typescript
 npm install -g cordova
 npm install -g phonegap
 npm install -g ionic
+npm install -g typescript cordova phonegap ionic
 
 ionic info
 
@@ -33,3 +34,7 @@ ionic cordova plugin add phonegap-plugin-barcodescanner
 npm install --save @ionic-native/barcode-scanner
 npm install @ionic-native/core --save
 cordova platform update android
+
+# bluetooth
+ionic cordova plugin add cordova-plugin-bluetooth-serial
+npm install --save @ionic-native/bluetooth-serial
