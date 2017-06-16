@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
-import { LoggerProvider } from '../providers/logger/logger';
+import { LoggerProvider } from '../../providers/logger/logger';
 
 @IonicPage({
   name: 'BluetoothPage'
@@ -54,7 +54,7 @@ export class BluetoothPage {
       }).present();
 
       this.bluetoothSerial.subscribe('\n').subscribe((data) => {
-        this.logger.add(JSON.stringify(data));
+        this.logger.addLog(JSON.stringify(data));
       });
     }, (err) => {
       loading.dismiss();

@@ -7,4 +7,9 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
+  <ion-list>
+    <button ion-item *ngFor="let log of logs" (click)="getLogs()">
+            <p>{{log}}</p>
+        </button>
+  </ion-list>
 </ion-content>
