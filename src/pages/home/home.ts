@@ -9,6 +9,8 @@ import { LoggerProvider } from '../../providers/logger/logger';
 })
 export class HomePage {
 
+  logs: Array<string>;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public logger: LoggerProvider) {
   }
 
@@ -17,7 +19,9 @@ export class HomePage {
   }
 
   getLogs() {
-    return this.logger.getLogs();
+    this.logger.getLogs().then((data) => {
+      this.logs = data;
+    });
   }
 
 }
