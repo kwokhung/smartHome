@@ -5,6 +5,7 @@ npm install -g cordova
 npm install -g phonegap
 npm install -g ionic
 npm install -g typescript cordova phonegap ionic
+npm rebuild node-sass
 
 ionic info
 

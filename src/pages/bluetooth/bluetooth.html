@@ -7,15 +7,10 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        Hello
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-list>
+    <button ion-item *ngFor="let device of devices" (click)="openDeviceDetails(device)">
+            <h2>{{device.name}}</h2>
+            <p>{{device.address}}</p>
+        </button>
+  </ion-list>
 </ion-content>
