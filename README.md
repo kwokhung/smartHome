@@ -24,6 +24,7 @@ ionic g page home
 ionic g page led
 ionic g page scan
 ionic g page bluetooth
+ionic g provider logger
 
 ionic cordova platform add android
 ionic cordova build android --prod --release

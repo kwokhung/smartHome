@@ -7,6 +7,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 import { MyApp } from './app.component';
+import { LoggerProvider } from '../providers/logger/logger';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MyApp } from './app.component';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     BarcodeScanner,
-    BluetoothSerial
+    BluetoothSerial,
+    LoggerProvider
   ]
 })
 export class AppModule { }
