@@ -14,7 +14,7 @@ export class LoggerProvider {
   }
 
   getLogs() {
-    return this.logs;
+    return Promise.resolve(this.logs);
   }
 
 }
