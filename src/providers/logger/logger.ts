@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 
 @Injectable()
 export class LoggerProvider {
 
-  constructor(public http: Http) {
-    console.log('Hello LoggerProvider Provider');
+  logs: Array<string>;
+
+  constructor() {
+    this.logs = [];
+  }
+
+  addLog(log: string) {
+    this.logs.concat(log);
+  }
+
+  getLogs() {
+    return this.logs;
   }
 
 }
