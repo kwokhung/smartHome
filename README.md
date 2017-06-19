@@ -41,3 +41,7 @@ cordova platform update android
 # bluetooth
 ionic cordova plugin add cordova-plugin-bluetooth-serial
 npm install --save @ionic-native/bluetooth-serial
+
+ionic cordova platform add browser
+ionic cordova run browser
+ionic cordova run browser --prod
