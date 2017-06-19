@@ -22,7 +22,8 @@ export class HomePage {
 
   getLogs() {
     this.logger.getLogs().then((data) => {
-      this.logs = data.reverse();
+      this.logs = data;
+      this.logs = this.logs.reverse();
     });
   }
 
