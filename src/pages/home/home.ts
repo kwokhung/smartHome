@@ -22,7 +22,7 @@ export class HomePage {
 
   getLogs() {
     this.logger.getLogs().then((data) => {
-      this.logs = data;
+      this.logs = data.reverse();
     });
   }
 
