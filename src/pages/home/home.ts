@@ -22,17 +22,17 @@ export class HomePage {
 
   getLogs() {
     this.logger.getLogs().then((data) => {
-      this.logs.concat(data);
+      this.logs = data.slice(0);
       this.logs = this.logs.reverse();
     });
   }
 
   openLogDetails(log) {
-      this.alertCtrl.create({
-        title: "Log Details",
-        subTitle: JSON.stringify(log),
-        buttons: ["Close"]
-      }).present();
+    this.alertCtrl.create({
+      title: "Log Details",
+      subTitle: JSON.stringify(log),
+      buttons: ["Close"]
+    }).present();
   }
 
 }
