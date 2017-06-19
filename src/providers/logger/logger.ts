@@ -10,7 +10,7 @@ export class LoggerProvider {
   }
 
   addLog(log: string) {
-    this.logs.concat(log);
+    this.logs.push(log);
   }
 
   getLogs() {

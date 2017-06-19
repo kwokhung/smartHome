@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { LoggerProvider } from '../../providers/logger/logger';
 
 @IonicPage()
@@ -11,17 +11,27 @@ export class HomePage {
 
   logs: Array<string>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public logger: LoggerProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public logger: LoggerProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad HomePage');
+
+    this.getLogs();
   }
 
   getLogs() {
     this.logger.getLogs().then((data) => {
       this.logs = data;
     });
+  }
+
+  openLogDetails(log) {
+      this.alertCtrl.create({
+        title: "Log Details",
+        subTitle: JSON.stringify(log),
+        buttons: ["Close"]
+      }).present();
   }
 
 }
