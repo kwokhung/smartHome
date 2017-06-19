@@ -9,7 +9,7 @@ import { LoggerProvider } from '../../providers/logger/logger';
 })
 export class HomePage {
 
-  logs: Array<string>;
+  logs: Array<string> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public logger: LoggerProvider) {
   }
@@ -22,7 +22,7 @@ export class HomePage {
 
   getLogs() {
     this.logger.getLogs().then((data) => {
-      this.logs = data;
+      this.logs.concat(data);
       this.logs = this.logs.reverse();
     });
   }
