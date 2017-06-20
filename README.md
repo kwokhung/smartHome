@@ -38,7 +38,6 @@ phonegap remote build android
 ionic cordova plugin add phonegap-plugin-barcodescanner
 npm install --save @ionic-native/barcode-scanner
 npm install @ionic-native/core --save
-cordova platform update android
 
 # bluetooth
 ionic cordova plugin add cordova-plugin-bluetooth-serial
@@ -51,6 +50,9 @@ npm install --save @ionic-native/text-to-speech
 # speech
 ionic cordova plugin add cordova-plugin-speechrecognition
 npm install --save @ionic-native/speech-recognition
+
+ionic cordova platform update android
+ionic cordova build android
 
 ionic cordova platform add browser --save
 ionic cordova build browser
