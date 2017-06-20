@@ -48,6 +48,10 @@ npm install --save @ionic-native/bluetooth-serial
 ionic cordova plugin add cordova-plugin-tts
 npm install --save @ionic-native/text-to-speech
 
+# speech
+ionic cordova plugin add cordova-plugin-speechrecognition
+npm install --save @ionic-native/speech-recognition
+
 ionic cordova platform add browser --save
 ionic cordova build browser
 ionic cordova run browser
