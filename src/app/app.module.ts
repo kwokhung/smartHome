@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 import { MyApp } from './app.component';
 import { LoggerProvider } from '../providers/logger/logger';
@@ -29,6 +30,7 @@ import { LoggerProvider } from '../providers/logger/logger';
     BarcodeScanner,
     BluetoothSerial,
     TextToSpeech,
+    SpeechRecognition,
     LoggerProvider
   ]
 })

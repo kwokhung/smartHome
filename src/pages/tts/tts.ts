@@ -20,13 +20,10 @@ export class TtsPage {
     console.log('ionViewDidLoad TtsPage');
   }
 
-  async sayText(): Promise<any> {
-    try {
-      await this.tts.speak(this.text);
-    }
-    catch (e) {
-      console.log(e);
-    }
+  sayText() {
+    this.tts.speak(this.text)
+      .then(() => console.log('Success'))
+      .catch((reason: any) => console.log(reason));
   }
 
 }
