@@ -51,15 +51,10 @@ export class SpeechPage {
   }
 
   async hasPermission(): Promise<boolean> {
-    try {
-      let permission = await this.speechRecognition.hasPermission();
-      this.logger.addLog(JSON.stringify(permission));
+    let permission = await this.speechRecognition.hasPermission();
+    this.logger.addLog(JSON.stringify(permission));
 
-      return permission;
-    }
-    catch (e) {
-      this.logger.addLog(JSON.stringify(e));
-    }
+    return permission;
   }
 
   async getSupportedLanguages(): Promise<Array<string>> {
