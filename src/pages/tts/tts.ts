@@ -23,9 +23,9 @@ export class TtsPage {
 
   sayText() {
     this.tts.speak({
-      text: this.text,
+      text: this.text/*,
       locale: 'en-US',
-      rate: 1
+      rate: 1*/
     }).then(() => {
       this.logger.addLog(JSON.stringify('Success'));
     }).catch((reason: any) => {
