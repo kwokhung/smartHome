@@ -39,6 +39,10 @@ npm install --save @ionic-native/barcode-scanner
 npm install @ionic-native/core --save
 cordova platform update android
 
+# speech
+ionic cordova plugin add cordova-plugin-tts
+npm install --save @ionic-native/bluetooth-serial
+
 # bluetooth
 ionic cordova plugin add cordova-plugin-bluetooth-serial
 npm install --save @ionic-native/bluetooth-serial

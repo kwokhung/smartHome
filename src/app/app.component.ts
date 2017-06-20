@@ -28,7 +28,7 @@ export class MyApp {
       { title: 'Led', component: 'LedPage', icon: 'sunny' },
       { title: 'Scan', component: 'ScanPage', icon: 'qr-scanner' },
       { title: 'Bluetooth', component: 'BluetoothPage', icon: 'bluetooth' },
-      { title: 'Speech', component: 'SpeechPage', icon: 'speech' }
+      { title: 'Speech', component: 'SpeechPage', icon: 'mic' }
     ];
   }
 
