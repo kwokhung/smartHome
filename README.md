@@ -24,6 +24,7 @@ ionic g page home
 ionic g page led
 ionic g page scan
 ionic g page bluetooth
+ionic g page tts
 ionic g page speech
 ionic g provider logger
 
@@ -43,7 +44,7 @@ cordova platform update android
 ionic cordova plugin add cordova-plugin-bluetooth-serial
 npm install --save @ionic-native/bluetooth-serial
 
-# speech
+# tts
 ionic cordova plugin add cordova-plugin-tts
 npm install --save @ionic-native/text-to-speech
 
