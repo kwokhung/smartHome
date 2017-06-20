@@ -22,13 +22,15 @@ export class TtsPage {
   }
 
   sayText() {
-    this.tts.speak(this.text)
-      .then(() => {
-        this.logger.addLog(JSON.stringify('Success'));
-      })
-      .catch((reason: any) => {
-        this.logger.addLog(JSON.stringify(reason));
-      });
+    this.tts.speak({
+      text: this.text,
+      locale: 'en-US',
+      rate: 1
+    }).then(() => {
+      this.logger.addLog(JSON.stringify('Success'));
+    }).catch((reason: any) => {
+      this.logger.addLog(JSON.stringify(reason));
+    });
   }
 
 }
