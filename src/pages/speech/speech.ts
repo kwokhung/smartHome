@@ -23,22 +23,29 @@ export class SpeechPage {
     console.log('ionViewDidLoad SpeechPage');
   }
 
-  /*isSpeechSupported() {
+  isSpeechSupported() {
     this.speechRecognition.isRecognitionAvailable()
       .then((available: boolean) => {
         this.logger.addLog(JSON.stringify(available));
       }).catch((reason: any) => {
         this.logger.addLog(JSON.stringify(reason));
       });
-  }*/
-  async isSpeechSupported(): Promise<boolean> {
+  }
+  /*async isSpeechSupported(): Promise<boolean> {
     let isAvailable = await this.speechRecognition.isRecognitionAvailable();
     this.logger.addLog(JSON.stringify(isAvailable));
 
     return isAvailable;
-  }
+  }*/
 
-  async getPermission(): Promise<void> {
+  getPermission() {
+    this.speechRecognition.requestPermission().then(() => {
+        this.logger.addLog(JSON.stringify('permission'));
+      }).catch((reason: any) => {
+        this.logger.addLog(JSON.stringify(reason));
+      });
+  }
+  /*async getPermission(): Promise<void> {
     try {
       let permission = await this.speechRecognition.requestPermission();
       this.logger.addLog(JSON.stringify(permission));
@@ -48,16 +55,30 @@ export class SpeechPage {
     catch (e) {
       this.logger.addLog(JSON.stringify(e));
     }
-  }
+  }*/
 
-  async hasPermission(): Promise<boolean> {
+  hasPermission() {
+    this.speechRecognition.hasPermission().then((permission: boolean) => {
+        this.logger.addLog(JSON.stringify(permission));
+      }).catch((reason: any) => {
+        this.logger.addLog(JSON.stringify(reason));
+      });
+  }
+  /*async hasPermission(): Promise<boolean> {
     let permission = await this.speechRecognition.hasPermission();
     this.logger.addLog(JSON.stringify(permission));
 
     return permission;
-  }
+  }*/
 
-  async getSupportedLanguages(): Promise<Array<string>> {
+  getSupportedLanguages() {
+    this.speechRecognition.getSupportedLanguages().then((languages: Array<string>) => {
+        this.logger.addLog(JSON.stringify(languages));
+      }).catch((reason: any) => {
+        this.logger.addLog(JSON.stringify(reason));
+      });
+  }
+  /*async getSupportedLanguages(): Promise<Array<string>> {
     try {
       let languages = await this.speechRecognition.getSupportedLanguages();
       this.logger.addLog(JSON.stringify(languages));
@@ -67,10 +88,9 @@ export class SpeechPage {
     catch (e) {
       this.logger.addLog(JSON.stringify(e));
     }
-  }
+  }*/
 
   listenForSpeech(): void {
-
     this.androidOptions = {
       prompt: 'Speak into your phone!'
     }
