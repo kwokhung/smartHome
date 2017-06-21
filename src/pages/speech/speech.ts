@@ -40,7 +40,6 @@ export class SpeechPage {
 
   getPermission() {
     this.speechRecognition.requestPermission().then(() => {
-      this.logger.addLog('Why not permission?');
       this.logger.addLog(JSON.stringify('permission'));
     }).catch((reason: any) => {
       this.logger.addLog(JSON.stringify(reason));
@@ -108,14 +107,20 @@ export class SpeechPage {
     if (this.platform.is('android')) {
       this.speechRecognition.startListening(this.androidOptions).subscribe((matches: Array<string>) => {
         this.speechList = matches;
+
         let ledOn = this.speechList.some((value, index, array) => {
           return value.match('開') === null;
         });
         this.logger.addLog(JSON.stringify(ledOn));
+
         let ledOff = this.speechList.some((value, index, array) => {
           return value.match('關') === null;
         });
         this.logger.addLog(JSON.stringify(ledOff));
+        
+        if (ledOn || ledOff) {
+          this.navCtrl.push('LedPage');
+        }
       }, (error) => {
         this.logger.addLog(JSON.stringify(error));
       });
