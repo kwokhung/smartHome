@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Paho } from 'ng2-mqtt/mqttws31';
+import { LoggerProvider } from '../../providers/logger/logger';
 
 interface BrightnessParameter {
   RVALUE: number;
@@ -21,7 +22,7 @@ export class LedPage {
   greenBrightness: number = 0;
   blueBrightness: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public logger: LoggerProvider) {
     this.client = new Paho.MQTT.Client("mbltest01.mqtt.iot.gz.baidubce.com", Number("8884"), "/mqtt", "DeviceId-s42mw9zs48");
 
     this.client.onConnectionLost = (response) => {
