@@ -40,10 +40,11 @@ export class SpeechPage {
 
   getPermission() {
     this.speechRecognition.requestPermission().then(() => {
-        this.logger.addLog(JSON.stringify('permission'));
-      }).catch((reason: any) => {
-        this.logger.addLog(JSON.stringify(reason));
-      });
+      this.logger.addLog('Why not permission?');
+      this.logger.addLog(JSON.stringify('permission'));
+    }).catch((reason: any) => {
+      this.logger.addLog(JSON.stringify(reason));
+    });
   }
   /*async getPermission(): Promise<void> {
     try {
@@ -59,10 +60,10 @@ export class SpeechPage {
 
   hasPermission() {
     this.speechRecognition.hasPermission().then((permission: boolean) => {
-        this.logger.addLog(JSON.stringify(permission));
-      }).catch((reason: any) => {
-        this.logger.addLog(JSON.stringify(reason));
-      });
+      this.logger.addLog(JSON.stringify(permission));
+    }).catch((reason: any) => {
+      this.logger.addLog(JSON.stringify(reason));
+    });
   }
   /*async hasPermission(): Promise<boolean> {
     let permission = await this.speechRecognition.hasPermission();
@@ -73,10 +74,10 @@ export class SpeechPage {
 
   getSupportedLanguages() {
     this.speechRecognition.getSupportedLanguages().then((languages: Array<string>) => {
-        this.logger.addLog(JSON.stringify(languages));
-      }).catch((reason: any) => {
-        this.logger.addLog(JSON.stringify(reason));
-      });
+      this.logger.addLog(JSON.stringify(languages));
+    }).catch((reason: any) => {
+      this.logger.addLog(JSON.stringify(reason));
+    });
   }
   /*async getSupportedLanguages(): Promise<Array<string>> {
     try {
@@ -92,23 +93,36 @@ export class SpeechPage {
 
   listenForSpeech(): void {
     this.androidOptions = {
-      prompt: 'Speak into your phone!'
+      language: '',
+      matches: 5,
+      prompt: 'Speak into your phone!',
+      showPopup: true
+
     }
 
     this.iosOptions = {
-      language: 'en-US'
+      language: 'en-US',
+      showPartial: false
     }
 
     if (this.platform.is('android')) {
-      this.speechRecognition.startListening(this.androidOptions).subscribe((data) => {
-        this.speechList = data;
+      this.speechRecognition.startListening(this.androidOptions).subscribe((matches: Array<string>) => {
+        this.speechList = matches;
+        let ledOn = this.speechList.some((value, index, array) => {
+          return value.match('開') === null;
+        });
+        this.logger.addLog(JSON.stringify(ledOn));
+        let ledOff = this.speechList.some((value, index, array) => {
+          return value.match('關') === null;
+        });
+        this.logger.addLog(JSON.stringify(ledOff));
       }, (error) => {
         this.logger.addLog(JSON.stringify(error));
       });
     }
     else if (this.platform.is('ios')) {
-      this.speechRecognition.startListening(this.iosOptions).subscribe((data) => {
-        this.speechList = data;
+      this.speechRecognition.startListening(this.iosOptions).subscribe((matches: Array<string>) => {
+        this.speechList = matches;
       }, (error) => {
         this.logger.addLog(JSON.stringify(error));
       });
