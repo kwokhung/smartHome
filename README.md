@@ -27,6 +27,7 @@ ionic g page bluetooth
 ionic g page tts
 ionic g page speech
 ionic g provider logger
+ionic g provider mqtt
 
 ionic cordova platform add android
 ionic cordova build android --prod --release

@@ -10,6 +10,7 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition';
 
 import { MyApp } from './app.component';
 import { LoggerProvider } from '../providers/logger/logger';
+import { MqttProvider } from '../providers/mqtt/mqtt';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { LoggerProvider } from '../providers/logger/logger';
     BluetoothSerial,
     TextToSpeech,
     SpeechRecognition,
-    LoggerProvider
+    LoggerProvider,
+    MqttProvider
   ]
 })
 export class AppModule { }
