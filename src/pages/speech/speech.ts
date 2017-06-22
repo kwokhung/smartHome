@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 import { SpeechRecognition, SpeechRecognitionListeningOptionsAndroid, SpeechRecognitionListeningOptionsIOS } from '@ionic-native/speech-recognition';
 import { LoggerProvider } from '../../providers/logger/logger';
+import { MqttProvider } from '../../providers/mqtt/mqtt';
 
 @IonicPage({
   name: 'SpeechPage'
@@ -16,7 +17,7 @@ export class SpeechPage {
   androidOptions: SpeechRecognitionListeningOptionsAndroid;
   iosOptions: SpeechRecognitionListeningOptionsIOS;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public speechRecognition: SpeechRecognition, public logger: LoggerProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public speechRecognition: SpeechRecognition, public logger: LoggerProvider, public mqtt: MqttProvider) {
   }
 
   ionViewDidLoad() {
@@ -111,15 +112,17 @@ export class SpeechPage {
         let ledOn = this.speechList.some((value, index, array) => {
           return value.match('開') === null;
         });
-        this.logger.addLog(JSON.stringify(ledOn));
+
+        if (this.mqtt.client.isConnected()) {
+          this.mqtt.send('{\"RVALUE\":1023,\"GVALUE\":1023,\"BVALUE\":1023}', 'nodemcu01');
+        }
 
         let ledOff = this.speechList.some((value, index, array) => {
           return value.match('關') === null;
         });
-        this.logger.addLog(JSON.stringify(ledOff));
-        
-        if (ledOn || ledOff) {
-          this.navCtrl.push('LedPage');
+
+        if (this.mqtt.client.isConnected()) {
+          this.mqtt.send('{\"RVALUE\":0,\"GVALUE\":0,\"BVALUE\":0}', 'nodemcu01');
         }
       }, (error) => {
         this.logger.addLog(JSON.stringify(error));
