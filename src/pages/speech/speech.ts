@@ -96,7 +96,7 @@ export class SpeechPage {
       language: '',
       matches: 5,
       prompt: '',
-      showPopup: false
+      showPopup: true
 
     }
 
@@ -110,7 +110,7 @@ export class SpeechPage {
         this.speechList = matches;
 
         let ledOn = this.speechList.some((value, index, array) => {
-          return value.match('開') === null;
+          return value.match('開') !== null;
         });
 
         if (ledOn) {
@@ -118,7 +118,7 @@ export class SpeechPage {
         }
 
         let ledOff = this.speechList.some((value, index, array) => {
-          return value.match('關') === null;
+          return value.match('關') !== null;
         });
 
         if (ledOff) {
