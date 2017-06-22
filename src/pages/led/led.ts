@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Paho } from 'ng2-mqtt/mqttws31';
 import { LoggerProvider } from '../../providers/logger/logger';
+import { MqttProvider } from '../../providers/mqtt/mqtt';
 
 interface BrightnessParameter {
   RVALUE: number;
@@ -17,20 +17,12 @@ interface BrightnessParameter {
   templateUrl: 'led.html',
 })
 export class LedPage {
-  client: any;
   redBrightness: number = 0;
   greenBrightness: number = 0;
   blueBrightness: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public logger: LoggerProvider) {
-    this.client = new Paho.MQTT.Client("mbltest01.mqtt.iot.gz.baidubce.com", Number("8884"), "/mqtt", "DeviceId-s42mw9zs48");
-
-    this.client.onConnectionLost = (response) => {
-      console.log("onConnectionLost: " + response.errorCode);
-      console.log("onConnectionLost: " + response.errorMessage);
-    };
-
-    this.client.onMessageArrived = (message) => {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public logger: LoggerProvider, public mqtt: MqttProvider) {
+    mqtt.client.onMessageArrived = (message) => {
       console.log("onMessageArrived: " + message.payloadString);
       console.log(message);
 
@@ -41,48 +33,9 @@ export class LedPage {
       this.blueBrightness = this.constraint(brightness.BVALUE);
     };
 
-    this.client.onMessageDelivered = (message) => {
-      console.log("onMessageDelivered: " + message.payloadString);
-      console.log(message);
-    };
-
-    this.client.connect({
-      useSSL: true,
-      userName: "mbltest01/letv1s01",
-      password: "hzrU8ekRn7MR7X4ycTO6OzbKbRDaaK5tmaLVY+Ue/58=",
-      invocationContext: {
-        userName: "mbltest01/letv1s01"
-      },
-      onSuccess: (context) => {
-        console.log("connect.onSuccess");
-        console.log(context);
-        console.log(this);
-
-        this.client.subscribe("letv1s01", {
-          invocationContext: {
-            topic: "letv1s01"
-          },
-          onSuccess: (response) => {
-            console.log("subscribe.onSuccess: " + response.grantedQos);
-            console.log(response.invocationContext);
-          },
-          onFailure: (response) => {
-            console.log("subscribe.onFailure: " + response.errorCode);
-            console.log(response.invocationContext);
-          }
-        });
-
-        let message: any = new Paho.MQTT.Message("{\"RVALUE\":0,\"GVALUE\":0,\"BVALUE\":0}");
-        message.destinationName = "nodemcu01";
-
-        this.client.send(message);
-      },
-      onFailure: (response) => {
-        console.log("connect.onFailure: " + response.errorCode);
-        console.log("connect.onFailure: " + response.errorMessage);
-        console.log(response.invocationContext);
-      }
-    });
+    if (mqtt.client.isConnected()) {
+      mqtt.send('{\"RVALUE\":0,\"GVALUE\":0,\"BVALUE\":0}', 'nodemcu01');
+    }
   }
 
   ionViewDidLoad() {
@@ -110,10 +63,7 @@ export class LedPage {
       BVALUE: this.blueBrightness
     };
 
-    let message: any = new Paho.MQTT.Message(JSON.stringify(brightness));
-    message.destinationName = "nodemcu01";
-
-    this.client.send(message);
+    this.mqtt.send(JSON.stringify(brightness), 'nodemcu01');
   }
 
 }
