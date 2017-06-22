@@ -113,7 +113,7 @@ export class SpeechPage {
           return value.match('開') === null;
         });
 
-        if (this.mqtt.client.isConnected()) {
+        if (ledOn) {
           this.mqtt.send('{\"RVALUE\":1023,\"GVALUE\":1023,\"BVALUE\":1023}', 'nodemcu01');
         }
 
@@ -121,7 +121,7 @@ export class SpeechPage {
           return value.match('關') === null;
         });
 
-        if (this.mqtt.client.isConnected()) {
+        if (ledOff) {
           this.mqtt.send('{\"RVALUE\":0,\"GVALUE\":0,\"BVALUE\":0}', 'nodemcu01');
         }
       }, (error) => {

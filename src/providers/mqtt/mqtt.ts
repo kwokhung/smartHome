@@ -53,10 +53,12 @@ export class MqttProvider {
   }
 
   send(text: string, destination: string) {
-    let message: any = new Paho.MQTT.Message(text);
-    message.destinationName = destination;
+    if (this.client.isConnected()) {
+      let message: any = new Paho.MQTT.Message(text);
+      message.destinationName = destination;
 
-    this.client.send(message);
+      this.client.send(message);
+    }
   }
 
 }
