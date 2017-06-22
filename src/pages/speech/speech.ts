@@ -95,8 +95,8 @@ export class SpeechPage {
     this.androidOptions = {
       language: '',
       matches: 5,
-      prompt: 'Speak into your phone!',
-      showPopup: true
+      prompt: '',
+      showPopup: false
 
     }
 
