@@ -10,7 +10,7 @@ interface BrightnessParameter {
 }
 
 @IonicPage({
-  name: 'aLedPage'
+  name: 'LedPage'
 })
 @Component({
   selector: 'page-led',
