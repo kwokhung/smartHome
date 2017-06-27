@@ -24,8 +24,9 @@ ionic g page home
 ionic g page led
 ionic g page scan
 ionic g page bluetooth
-ionic g page tts
 ionic g page speech
+ionic g page tts
+ionic g page config
 ionic g provider logger
 ionic g provider mqtt
 

@@ -29,7 +29,8 @@ export class MyApp {
       { title: 'Scan', component: 'ScanPage', icon: 'qr-scanner' },
       { title: 'Bluetooth', component: 'BluetoothPage', icon: 'bluetooth' },
       { title: 'Speech', component: 'SpeechPage', icon: 'mic' },
-      { title: 'TTS', component: 'TtsPage', icon: 'mic' }
+      { title: 'TTS', component: 'TtsPage', icon: 'mic' },
+      { title: 'Config', component: 'ConfigPage', icon: 'settings' }
     ];
   }
 
