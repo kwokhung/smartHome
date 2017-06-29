@@ -17,6 +17,7 @@ export class ConfigPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http: Http) {
     this.config = this.formBuilder.group({
+      host: ['', Validators.required],
       ssid: ['', Validators.required],
       password: ['', Validators.required],
     });
@@ -29,13 +30,13 @@ export class ConfigPage {
   }
 
   submit() {
-    console.log(this.config.value);
+    //jsonplaceholder.typicode.com/posts
+    //let body = JSON.stringify({ title: this.config.value.ssid, body: this.config.value.password, userId: 1 });
+    let body = JSON.stringify({ ssid: this.config.value.ssid, password: this.config.value.password });
 
-    let body = JSON.stringify({ title: this.config.value.ssid, body: this.config.value.password, userId: 1 });
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    this.http.post('https://jsonplaceholder.typicode.com/posts', body, options).subscribe(data => {
+    this.http.post('http://' + this.config.value.host, body, new RequestOptions({
+      headers: new Headers({ 'Content-Type': 'application/json' })
+    })).subscribe(data => {
       this.response = JSON.stringify(data.json());
     }, error => {
       this.response = JSON.stringify(error);

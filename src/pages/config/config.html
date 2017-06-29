@@ -9,6 +9,10 @@
 <ion-content padding>
   <form [formGroup]="config" (ngSubmit)="submit()">
     <ion-item>
+      <ion-label>Host</ion-label>
+      <ion-input type="text" formControlName="host"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label>SSID</ion-label>
       <ion-input type="text" formControlName="ssid"></ion-input>
     </ion-item>
@@ -16,7 +20,7 @@
       <ion-label>Password</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
-    <button ion-button type="submit" [disabled]="!config.valid">Submit to server</button>
+    <button ion-button type="submit" [disabled]="!config.valid">Save</button>
   </form>
   <ion-card>
     <ion-card-header>
