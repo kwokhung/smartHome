@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Http, Headers, RequestOptions } from '@angular/http';
-import 'rxjs/Rx';
 
 @IonicPage({
   name: 'ConfigPage'
@@ -12,12 +12,16 @@ import 'rxjs/Rx';
 })
 export class ConfigPage {
 
-  data: any;
+  config: FormGroup;
+  response: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public http: Http) {
-    this.data = {};
-    this.data.username = '';
-    this.data.response = '';
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http: Http) {
+    this.config = this.formBuilder.group({
+      ssid: ['', Validators.required],
+      password: ['', Validators.required],
+    });
+
+    this.response = '';
   }
 
   ionViewDidLoad() {
@@ -25,13 +29,17 @@ export class ConfigPage {
   }
 
   submit() {
-    let body = JSON.stringify({ username: this.data.username });
+    console.log(this.config.value);
+
+    let body = JSON.stringify({ title: this.config.value.ssid, body: this.config.value.password, userId: 1 });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    this.http.post('http://192.168.4.1', body, options).toPromise().then(data => {
-      this.data.response = JSON.stringify(data);
-    });;
+    this.http.post('https://jsonplaceholder.typicode.com/posts', body, options).subscribe(data => {
+      this.response = JSON.stringify(data.json());
+    }, error => {
+      this.response = JSON.stringify(error);
+    });
   }
 
 }

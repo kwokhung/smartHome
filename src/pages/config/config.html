@@ -7,19 +7,23 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <ion-list>
-    <ion-input>
-      <ion-label>Username</ion-label>
-      <input type="text" name="username" [(ngModel)]="data.username">
-    </ion-input>
-    <button round block (click)="submit()">Submit to server</button>
-  </ion-list>
+  <form [formGroup]="config" (ngSubmit)="submit()">
+    <ion-item>
+      <ion-label>SSID</ion-label>
+      <ion-input type="text" formControlName="ssid"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!config.valid">Submit to server</button>
+  </form>
   <ion-card>
     <ion-card-header>
       Response
     </ion-card-header>
     <ion-card-content>
-      <b>{{data.response}}</b>
+      <b>{{response}}</b>
     </ion-card-content>
   </ion-card>
 </ion-content>
