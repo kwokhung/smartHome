@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { MqttProvider } from '../../providers/mqtt/mqtt';
 
 @IonicPage({
   name: 'ConfigPage'
@@ -15,7 +16,7 @@ export class ConfigPage {
   config: FormGroup;
   response: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http: Http) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http: Http, public mqtt: MqttProvider) {
     this.config = this.formBuilder.group({
       host: ['', Validators.required],
       ssid: ['', Validators.required],
@@ -41,6 +42,10 @@ export class ConfigPage {
     }, error => {
       this.response = JSON.stringify(error);
     });
+  }
+
+  reset() {
+    this.mqtt.send('{\"what\":{\"toDo\":\"reset\",\"details\":{\"ssid\":\"xxx\",\"password\":\"yyy\"}}}', 'nodemcu01');
   }
 
 }
