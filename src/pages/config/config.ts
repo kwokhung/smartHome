@@ -45,7 +45,7 @@ export class ConfigPage {
   }
 
   reset() {
-    this.mqtt.send('{\"what\":{\"toDo\":\"reset\",\"details\":{\"ssid\":\"xxx\",\"password\":\"yyy\"}}}', 'nodemcu01');
+    this.mqtt.send(JSON.stringify({ what: { toDo: "reset", details: { ssid: "xxx", password: "yyy" } } }), 'nodemcu01');
   }
 
 }
