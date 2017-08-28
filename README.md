@@ -18,7 +18,9 @@ npm install --save-dev --save-exact ionic@latest
 npm install --save-dev --save-exact @ionic/app-scripts@latest
 npm install --save-dev --save-exact @ionic/app-scripts@1.3.12
 npm install --save-dev --save-exact @ionic/cli-plugin-cordova@latest
+npm uninstall --save-dev --save-exact @ionic/cli-plugin-cordova
 npm install --save-dev --save-exact @ionic/cli-plugin-ionic-angular@latest
+npm uninstall --save-dev --save-exact @ionic/cli-plugin-ionic-angular
 npm install --save ng2-mqtt
 ionic serve
 
