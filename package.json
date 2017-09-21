@@ -50,8 +50,8 @@
     },
     "devDependencies": {
         "@ionic/app-scripts": "2.1.4",
-        "ionic": "3.9.2",
-        "typescript": "2.4.2"
+        "ionic": "3.10.3",
+        "typescript": "2.5.2"
     },
     "description": "An Ionic project",
     "cordova": {
