@@ -1,5 +1,5 @@
-npm install –g gulp
-npm install –g typings
+npm install -g gulp
+npm install -g typings
 npm install -g typescript
 npm install -g cordova
 npm install -g phonegap
