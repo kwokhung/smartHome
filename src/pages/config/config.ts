@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Http, Headers, RequestOptions } from '@angular/http';
+import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { MqttProvider } from '../../providers/mqtt/mqtt';
 
 @IonicPage({
@@ -14,16 +14,13 @@ import { MqttProvider } from '../../providers/mqtt/mqtt';
 export class ConfigPage {
 
   config: FormGroup;
-  response: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public http: Http, public mqtt: MqttProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public http: Http, public mqtt: MqttProvider) {
     this.config = this.formBuilder.group({
       host: ['', Validators.required],
       ssid: ['', Validators.required],
       password: ['', Validators.required],
     });
-
-    this.response = '';
   }
 
   ionViewDidLoad() {
@@ -31,21 +28,31 @@ export class ConfigPage {
   }
 
   submit() {
-    //jsonplaceholder.typicode.com/posts
-    //let body = JSON.stringify({ title: this.config.value.ssid, body: this.config.value.password, userId: 1 });
-    let body = JSON.stringify({ ssid: this.config.value.ssid, password: this.config.value.password });
-
-    this.http.post('http://' + this.config.value.host, body, new RequestOptions({
-      headers: new Headers({ 'Content-Type': 'application/json' })
-    })).subscribe(data => {
-      this.response = JSON.stringify(data.json());
-    }, error => {
-      this.response = JSON.stringify(error);
+    this.http.post('http://' + this.config.value.host, {
+      ssid: this.config.value.ssid,
+      password: this.config.value.password
+    }, new RequestOptions({
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      })
+    })).subscribe((data: Response) => {
+      this.toastCtrl.create({
+          message: JSON.stringify(data.json()),
+          duration: 1000,
+          position: 'middle'
+        }).present();
+    }, (error: any) => {
+      this.alertCtrl.create({
+        title: 'System Error',
+        subTitle: JSON.stringify(error),
+        buttons: ["Close"]
+      }).present();
     });
   }
 
   reset() {
-    this.mqtt.send('{\"what\":{\"toDo\":\"reset\",\"details\":{\"ssid\":\"xxx\",\"password\":\"yyy\"}}}', 'nodemcu01');
+    this.mqtt.send(JSON.stringify({ what: { toDo: "reset", details: { ssid: "xxx", password: "yyy" } } }), 'nodemcu01');
   }
 
 }

@@ -33,7 +33,7 @@ export class LedPage {
       this.blueBrightness = this.constraint(brightness.BVALUE);
     };
 
-    mqtt.send('{\"RVALUE\":0,\"GVALUE\":0,\"BVALUE\":0}', 'nodemcu01');
+    mqtt.send(JSON.stringify(<BrightnessParameter>{ RVALUE: 0, GVALUE: 0, BVALUE: 0 }), 'nodemcu01');
   }
 
   ionViewDidLoad() {

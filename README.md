@@ -1,10 +1,11 @@
 npm install -g gulp
 npm install -g typings
+npm install -g typescript cordova phonegap ionic
 npm install -g typescript
 npm install -g cordova
 npm install -g phonegap
 npm install -g ionic
-npm install -g typescript cordova phonegap ionic
+npm install -g @ionic/cli-plugin-proxy
 npm rebuild node-sass
 
 ionic info
@@ -12,7 +13,14 @@ ionic info
 git clone https://github.com/kwokhung/smartHome.git
 
 ionic start smartHome blank
-npm install --save-dev typescript @ionic/cli-plugin-ionic-angular @ionic/cli-plugin-cordova
+npm install --save-dev --save-exact typescript@latest
+npm install --save-dev --save-exact ionic@latest
+npm install --save-dev --save-exact @ionic/app-scripts@latest
+npm install --save-dev --save-exact @ionic/app-scripts@1.3.12
+npm install --save-dev --save-exact @ionic/cli-plugin-cordova@latest
+npm uninstall --save-dev --save-exact @ionic/cli-plugin-cordova
+npm install --save-dev --save-exact @ionic/cli-plugin-ionic-angular@latest
+npm uninstall --save-dev --save-exact @ionic/cli-plugin-ionic-angular
 npm install --save ng2-mqtt
 ionic serve
 

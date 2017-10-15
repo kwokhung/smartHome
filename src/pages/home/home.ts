@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { LoggerProvider } from '../../providers/logger/logger';
 
-@IonicPage()
+@IonicPage({
+  name: 'HomePage'
+})
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
