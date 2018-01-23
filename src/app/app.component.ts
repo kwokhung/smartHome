@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { FCM } from '@ionic-native/fcm';
 
 export interface MenuItem {
   title: string;
@@ -18,10 +19,30 @@ export class MyApp {
   rootPage: any = 'HomePage';
   appMenuItems: Array<MenuItem>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public fcm: FCM) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
+
+      fcm.getToken().then(token => {
+        alert(`Token: ${token}`);
+
+        fcm.onTokenRefresh().subscribe(token => {
+          alert(`Refreshed token: ${token}`);
+        })
+
+        fcm.subscribeToTopic('notification');
+
+        fcm.onNotification().subscribe(data => {
+          alert(`Data: ${JSON.stringify(data)}`);
+
+          if (data.wasTapped) {
+            alert("Received in background");
+          } else {
+            alert("Received in foreground");
+          };
+        })
+      })
     });
 
     this.appMenuItems = [
