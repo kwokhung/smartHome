@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "410113042798",
+    "firebase_url": "https://test-01-d91ae.firebaseio.com",
+    "project_id": "test-01-d91ae",
+    "storage_bucket": "test-01-d91ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410113042798:android:b4471f4ba2a2c370",
+        "android_client_info": {
+          "package_name": "com.mblinus.smartHome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410113042798-295l290uuvaqcr7c75gndg3u0tealf5p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBSj4vJjzpYOMwQ1QT3ruOCuB9YjojXT2g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
