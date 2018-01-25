@@ -37,6 +37,8 @@ ionic g page tts
 ionic g page config
 ionic g page ble
 ionic g page bleScan
+ionic g page bleConnect
+ionic g page bleConnectDetails
 ionic g provider logger
 ionic g provider mqtt
 

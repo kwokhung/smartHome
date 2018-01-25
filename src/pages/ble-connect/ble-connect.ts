@@ -1,17 +1,18 @@
+import { BLE } from '@ionic-native/ble';
 import { Component, NgZone } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
-import { BLE } from '@ionic-native/ble';
+import { DetailPage } from '../detail/detail';
 
 @IonicPage({
-  name: 'BleScanPage'
+  name: 'BleConnectPage'
 })
 @Component({
-  selector: 'page-ble-scan',
-  templateUrl: 'ble-scan.html'
+  selector: 'page-ble-connect',
+  templateUrl: 'ble-connect.html'
 })
-export class BleScanPage {
+export class BleConnectPage {
 
   devices: any[] = [];
   statusMessage: string;
@@ -61,6 +62,13 @@ export class BleScanPage {
     console.log(message);
     this.ngZone.run(() => {
       this.statusMessage = message;
+    });
+  }
+
+  deviceSelected(device) {
+    console.log(JSON.stringify(device) + ' selected');
+    this.navCtrl.push('BleConnectDetailsPage', {
+      device: device
     });
   }
 
