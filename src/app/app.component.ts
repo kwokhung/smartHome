@@ -46,7 +46,8 @@ export class MyApp {
       { title: 'Bluetooth', component: 'BluetoothPage', icon: 'bluetooth' },
       { title: 'Speech', component: 'SpeechPage', icon: 'mic' },
       { title: 'TTS', component: 'TtsPage', icon: 'mic' },
-      { title: 'Config', component: 'ConfigPage', icon: 'settings' }
+      { title: 'Config', component: 'ConfigPage', icon: 'settings' },
+      { title: 'BLE Scan', component: 'BleScanPage', icon: 'bluetooth' }
     ];
   }
 

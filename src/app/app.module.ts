@@ -9,6 +9,7 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { SpeechRecognition } from '@ionic-native/speech-recognition';
 import { FCM } from '@ionic-native/fcm';
+import { BLE } from '@ionic-native/ble';
 
 import { MyApp } from './app.component';
 import { LoggerProvider } from '../providers/logger/logger';
@@ -36,6 +37,7 @@ import { MqttProvider } from '../providers/mqtt/mqtt';
     TextToSpeech,
     SpeechRecognition,
     FCM,
+    BLE,
     LoggerProvider,
     MqttProvider
   ]

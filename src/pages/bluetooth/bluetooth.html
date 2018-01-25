@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="dark">
     <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
+      <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Bluetooth Page</ion-title>
   </ion-navbar>
@@ -9,8 +9,8 @@
 <ion-content padding>
   <ion-list>
     <button ion-item *ngFor="let device of devices" (click)="openDeviceDetails(device)">
-            <h2>{{device.name}}</h2>
-            <p>{{device.address}}</p>
-        </button>
+      <h2>{{device.name}}</h2>
+      <p>{{device.address}}</p>
+    </button>
   </ion-list>
 </ion-content>
