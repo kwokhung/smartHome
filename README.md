@@ -39,6 +39,8 @@ ionic g page ble
 ionic g page bleScan
 ionic g page bleConnect
 ionic g page bleConnectDetails
+ionic g page bleLight
+ionic g page bleLightDetails
 ionic g provider logger
 ionic g provider mqtt
 
