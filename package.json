@@ -21,6 +21,7 @@
         "@angular/platform-browser": "4.1.0",
         "@angular/platform-browser-dynamic": "4.1.0",
         "@ionic-native/barcode-scanner": "^3.12.1",
+        "@ionic-native/ble": "^4.5.2",
         "@ionic-native/bluetooth-serial": "^3.12.1",
         "@ionic-native/core": "^3.7.0",
         "@ionic-native/fcm": "^4.5.2",
@@ -30,6 +31,7 @@
         "@ionic-native/text-to-speech": "^3.12.1",
         "@ionic/storage": "2.0.1",
         "cordova-android": "^6.2.3",
+        "cordova-plugin-ble-central": "^1.1.4",
         "cordova-plugin-bluetooth-serial": "^0.4.7",
         "cordova-plugin-compat": "^1.0.0",
         "cordova-plugin-console": "^1.0.5",
@@ -67,7 +69,8 @@
             "cordova-plugin-bluetooth-serial": {},
             "cordova-plugin-tts": {},
             "cordova-plugin-speechrecognition": {},
-            "cordova-plugin-fcm": {}
+            "cordova-plugin-fcm": {},
+            "cordova-plugin-ble-central": {}
         },
         "platforms": [
             "android"
