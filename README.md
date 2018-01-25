@@ -65,6 +65,10 @@ npm install --save @ionic-native/speech-recognition
 ionic cordova plugin add cordova-plugin-fcm
 npm install --save @ionic-native/fcm
 
+# ble
+ionic cordova plugin add cordova-plugin-ble-central
+npm install --save @ionic-native/ble
+
 ionic cordova platform update android
 ionic cordova build android
 
