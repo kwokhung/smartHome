@@ -7,20 +7,55 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <form [formGroup]="config" (ngSubmit)="submit()">
-    <ion-item>
-      <ion-label>Host</ion-label>
-      <ion-input type="text" formControlName="host"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>SSID</ion-label>
-      <ion-input type="text" formControlName="ssid"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Password</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-    <button ion-button type="submit" [disabled]="!config.valid">Save</button>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-sm-2>
+          <ion-label>Host</ion-label>
+        </ion-col>
+        <ion-col col-12 col-sm-10>
+          <ion-input type="text" placeholder="Host" formControlName="txtHost"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.controls.txtHost.valid && (form.controls.txtHost.dirty || formSubmitted)">
+        <ion-col col-12 offset-sm-2 col-sm-10>
+          <ion-label style="margin: 13px 8px;" color="danger" [hidden]="form.controls.txtHost.valid">Host is mandatory</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-sm-2>
+          <ion-label>SSID</ion-label>
+        </ion-col>
+        <ion-col col-12 col-sm-10>
+          <ion-input type="text" placeholder="SSID" formControlName="txtSsid"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.controls.txtSsid.valid && (form.controls.txtSsid.dirty || formSubmitted)">
+        <ion-col col-12 offset-sm-2 col-sm-10>
+          <ion-label style="margin: 13px 8px;" color="danger" [hidden]="form.controls.txtSsid.valid">SSID is mandatory</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-sm-2>
+          <ion-label>Password</ion-label>
+        </ion-col>
+        <ion-col col-12 col-sm-10>
+          <ion-input type="password" placeholder="Password" formControlName="txtPassword"></ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="!form.controls.txtPassword.valid && (form.controls.txtPassword.dirty || formSubmitted)">
+        <ion-col col-12 offset-sm-2 col-sm-10>
+          <ion-label style="margin: 13px 8px;" color="danger" [hidden]="form.controls.txtPassword.valid">Password is mandatory</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-auto>
+          <ion-buttons>
+            <button ion-button type="submit" [disabled]="!form.valid">Save</button>
+            <button ion-button (click)="reset()">Reset</button>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </form>
-  <button ion-button (click)="reset()">Reset</button>
 </ion-content>

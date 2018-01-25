@@ -19,12 +19,12 @@ export class MyApp {
   rootPage: any = 'HomePage';
   appMenuItems: Array<MenuItem>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public fcm: FCM) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen/*, public fcm: FCM*/) {
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      fcm.getToken().then(token => {
+      /*fcm.getToken().then(token => {
         alert(`Token: ${token}`);
 
         fcm.onTokenRefresh().subscribe(token => {
@@ -36,7 +36,7 @@ export class MyApp {
         fcm.onNotification().subscribe(data => {
           alert(`Data: ${JSON.stringify(data)}`);
         })
-      })
+      })*/
     });
 
     this.appMenuItems = [

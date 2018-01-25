@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, LoadingController, Loading  } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { MqttProvider } from '../../providers/mqtt/mqtt';
@@ -13,13 +13,15 @@ import { MqttProvider } from '../../providers/mqtt/mqtt';
 })
 export class ConfigPage {
 
-  config: FormGroup;
+  loading: Loading;
+  form: FormGroup;
+  formSubmitted: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController, public formBuilder: FormBuilder, public http: Http, public mqtt: MqttProvider) {
-    this.config = this.formBuilder.group({
-      host: ['', Validators.required],
-      ssid: ['', Validators.required],
-      password: ['', Validators.required],
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public formBuilder: FormBuilder, public http: Http, public mqtt: MqttProvider) {
+    this.form = this.formBuilder.group({
+      txtHost: ['', Validators.required],
+      txtSsid: ['', Validators.required],
+      txtPassword: ['', Validators.required],
     });
   }
 
@@ -27,10 +29,18 @@ export class ConfigPage {
     console.log('ionViewDidLoad ConfigPage');
   }
 
-  submit() {
-    this.http.post('http://' + this.config.value.host, {
-      ssid: this.config.value.ssid,
-      password: this.config.value.password
+  ionViewDidEnter() {
+    this.formSubmitted = false;
+  }
+
+  public submit() {
+    this.formSubmitted = true;
+
+    this.showLoading();
+
+    this.http.post('http://' + this.form.value.txtHost, {
+      ssid: this.form.value.txtSsid,
+      password: this.form.value.txtPassword
     }, new RequestOptions({
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -43,16 +53,31 @@ export class ConfigPage {
           position: 'middle'
         }).present();
     }, (error: any) => {
-      this.alertCtrl.create({
-        title: 'System Error',
-        subTitle: JSON.stringify(error),
-        buttons: ["Close"]
-      }).present();
+      this.showError(JSON.stringify(error));
     });
   }
 
-  reset() {
+  public reset() {
     this.mqtt.send(JSON.stringify({ what: { toDo: "reset", details: { ssid: "xxx", password: "yyy" } } }), 'nodemcu01');
+  }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+
+    this.loading.present();
+  }
+
+  showError(text) {
+    this.loading.dismiss();
+
+    this.alertCtrl.create({
+      title: 'System Error',
+      subTitle: text,
+      buttons: ['Close']
+    }).present();
   }
 
 }
