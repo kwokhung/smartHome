@@ -35,12 +35,6 @@ export class MyApp {
 
         fcm.onNotification().subscribe(data => {
           alert(`Data: ${JSON.stringify(data)}`);
-
-          if (data.wasTapped) {
-            alert("Received in background");
-          } else {
-            alert("Received in foreground");
-          };
         })
       })
     });
