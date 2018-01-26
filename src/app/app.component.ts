@@ -50,7 +50,8 @@ export class MyApp {
       { title: 'BLE Scan', component: 'BleScanPage', icon: 'bluetooth' },
       { title: 'BLE Connect', component: 'BleConnectPage', icon: 'bluetooth' },
       { title: 'BLE Light', component: 'BleLightPage', icon: 'bluetooth' },
-      { title: 'BLE Button', component: 'BleButtonPage', icon: 'bluetooth' }
+      { title: 'BLE Button', component: 'BleButtonPage', icon: 'bluetooth' },
+      { title: 'BLE Thermo', component: 'BleThermoPage', icon: 'bluetooth' }
     ];
   }
 
