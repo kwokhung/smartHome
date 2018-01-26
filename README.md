@@ -43,6 +43,8 @@ ionic g page bleLight
 ionic g page bleLightDetails
 ionic g page bleButton
 ionic g page bleButtonDetails
+ionic g page bleThermo
+ionic g page bleThermoDetails
 ionic g provider logger
 ionic g provider mqtt
 
