@@ -4,7 +4,7 @@ import { IonicPage } from 'ionic-angular';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
-const LIGHTBULB_SERVICE = 'ff10';
+const LIGHTBULB_SERVICE = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E';
 
 @IonicPage({
   name: 'BleLightPage'
@@ -33,7 +33,7 @@ export class BleLightPage {
     this.setStatus('Scanning for Bluetooth LE Devices');
     this.devices = [];  // clear list
 
-    this.ble.scan([LIGHTBULB_SERVICE], 5).subscribe(
+    this.ble.scan([], 5).subscribe(
       device => this.onDeviceDiscovered(device),
       error => this.scanError(error)
     );

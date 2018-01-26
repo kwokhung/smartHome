@@ -41,6 +41,8 @@ ionic g page bleConnect
 ionic g page bleConnectDetails
 ionic g page bleLight
 ionic g page bleLightDetails
+ionic g page bleButton
+ionic g page bleButtonDetails
 ionic g provider logger
 ionic g provider mqtt
 

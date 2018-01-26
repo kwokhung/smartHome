@@ -4,9 +4,9 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { BLE } from '@ionic-native/ble';
 
 // Bluetooth UUIDs
-const LIGHTBULB_SERVICE = 'ff10';
+const LIGHTBULB_SERVICE = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E';
 const SWITCH_CHARACTERISTIC = 'ff11';
-const DIMMER_CHARACTERISTIC = 'ff12';
+const DIMMER_CHARACTERISTIC = '6E400003-B5A3-F393-E0A9-E50E24DCCA9E';
 
 @IonicPage({
   name: 'BleLightDetailsPage'
@@ -42,6 +42,13 @@ export class BleLightDetailsPage {
   onConnected(peripheral) {
 
     this.peripheral = peripheral;
+
+    this.alertCtrl.create({
+      title: "peripheral!",
+      subTitle: JSON.stringify(peripheral),
+      buttons: ["Close"]
+    }).present();
+
     this.setStatus('Connected to ' + (peripheral.name || peripheral.id));
 
     // Update the UI with the current state of the switch characteristic
@@ -58,11 +65,23 @@ export class BleLightDetailsPage {
     // Update the UI with the current state of the dimmer characteristic
     this.ble.read(this.peripheral.id, LIGHTBULB_SERVICE, DIMMER_CHARACTERISTIC).then(
       buffer => {
+        this.alertCtrl.create({
+          title: "buffer!",
+          subTitle: JSON.stringify(buffer),
+          buttons: ["Close"]
+        }).present();
         let data = new Uint8Array(buffer);
         console.log('dimmer characteristic ' + data[0]);
         this.ngZone.run(() => {
           this.brightness = data[0];
         });
+      },
+      (err) => {
+        this.alertCtrl.create({
+          title: "err!",
+          subTitle: JSON.stringify(err),
+          buttons: ["Close"]
+        }).present();
       }
     )
   }
