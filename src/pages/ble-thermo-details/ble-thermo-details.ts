@@ -1,24 +1,98 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, NgZone } from '@angular/core';
+import { IonicPage } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { BLE } from '@ionic-native/ble';
 
-/**
- * Generated class for the BleThermoDetailsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
+// Bluetooth UUIDs
+const THERMOMETER_SERVICE = '4fafc2011fb5459e8fccc5c9c331914b';
+const TEMPERATURE_CHARACTERISTIC = 'beb5483e36e14688b7f5ea07361b26a8';
+
+@IonicPage({
+  name: 'BleThermoDetailsPage'
+})
 @Component({
   selector: 'page-ble-thermo-details',
   templateUrl: 'ble-thermo-details.html',
 })
 export class BleThermoDetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  peripheral: any = {};
+  temperature: number;
+  statusMessage: string;
+
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private ble: BLE,
+    private alertCtrl: AlertController,
+    private ngZone: NgZone) {
+
+    let device = navParams.get('device');
+
+    this.setStatus('Connecting to ' + device.name || device.id);
+
+    // This is not a promise, the device can call disconnect after it connects, so it's an observable
+    this.ble.connect(device.id).subscribe(
+      peripheral => this.onConnected(peripheral),
+      peripheral => this.showAlert('Disconnected', 'The peripheral unexpectedly disconnected')
+    );
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad BleThermoDetailsPage');
+  // the connection to the peripheral was successful
+  onConnected(peripheral) {
+
+    this.peripheral = peripheral;
+    this.setStatus('Connected to ' + (peripheral.name || peripheral.id));
+
+    // Subscribe for notifications when the temperature changes
+    this.ble.startNotification(this.peripheral.id, THERMOMETER_SERVICE, TEMPERATURE_CHARACTERISTIC).subscribe(
+      data => this.onTemperatureChange(data),
+      () => this.showAlert('Unexpected Error', 'Failed to subscribe for temperature changes')
+    )
+
+    // Read the current value of the temperature characteristic
+    this.ble.read(this.peripheral.id, THERMOMETER_SERVICE, TEMPERATURE_CHARACTERISTIC).then(
+      data => this.onTemperatureChange(data),
+      () => this.showAlert('Unexpected Error', 'Failed to get temperature')
+    )
+
+  }
+
+  onTemperatureChange(buffer: ArrayBuffer) {
+
+    // Temperature is a 4 byte floating point value
+    var data = new Float32Array(buffer);
+    console.log(data[0]);
+
+    this.ngZone.run(() => {
+      this.temperature = data[0];
+    });
+
+  }
+
+  // Disconnect peripheral when leaving the page
+  ionViewWillLeave() {
+    console.log('ionViewWillLeave disconnecting Bluetooth');
+    this.ble.disconnect(this.peripheral.id).then(
+      () => console.log('Disconnected ' + JSON.stringify(this.peripheral)),
+      () => console.log('ERROR disconnecting ' + JSON.stringify(this.peripheral))
+    )
+  }
+
+  showAlert(title, message) {
+    let alert = this.alertCtrl.create({
+      title: title,
+      subTitle: message,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  setStatus(message) {
+    console.log(message);
+    this.ngZone.run(() => {
+      this.statusMessage = message;
+    });
   }
 
 }
