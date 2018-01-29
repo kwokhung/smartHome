@@ -44,6 +44,10 @@ export class BleThermoDetailsPage {
     this.peripheral = peripheral;
     this.setStatus('Connected to ' + (peripheral.name || peripheral.id));
 
+    this.showAlert("id", peripheral.id);
+    this.showAlert("service", peripheral.services[2]);
+    this.showAlert("characteristic", peripheral.characteristics[4].characteristic);
+    
     // Subscribe for notifications when the temperature changes
     this.ble.startNotification(this.peripheral.id, THERMOMETER_SERVICE, TEMPERATURE_CHARACTERISTIC).subscribe(
       data => this.onTemperatureChange(data),
