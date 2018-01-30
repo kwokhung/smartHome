@@ -49,7 +49,7 @@ export class BleThermoDetailsPage {
     //this.showAlert("characteristic", peripheral.characteristics[4].characteristic);
     
     // Subscribe for notifications when the temperature changes
-    this.ble.startNotification(this.peripheral.id, peripheral.services[2], peripheral.characteristics[4].characteristic).subscribe(
+    this.ble.startNotification(this.peripheral.id, THERMOMETER_SERVICE, TEMPERATURE_CHARACTERISTIC).subscribe(
       data => this.onTemperatureChange(data),
       () => this.showAlert('Unexpected Error', 'Failed to subscribe for temperature changes')
     )
@@ -71,7 +71,7 @@ export class BleThermoDetailsPage {
     // Temperature is a 1 byte floating point value
     var data = new Uint8Array(buffer);
     //this.showAlert("buffer", data[0]);
-    this.setStatus('Temperature: ' + data[0]);
+    this.setStatus('Temperature (degree): ' + data[0]);
 
     console.log(data[0]);
 
