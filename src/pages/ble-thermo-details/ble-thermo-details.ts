@@ -4,8 +4,8 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { BLE } from '@ionic-native/ble';
 
 // Bluetooth UUIDs
-const THERMOMETER_SERVICE = '4fafc2011fb5459e8fccc5c9c331914b';
-const TEMPERATURE_CHARACTERISTIC = 'beb5483e36e14688b7f5ea07361b26a8';
+const THERMOMETER_SERVICE = '4fafc201-1fb5-459e-8fcc-c5c9c331914b';
+const TEMPERATURE_CHARACTERISTIC = 'beb5483e-36e1-4688-b7f5-ea07361b26a8';
 
 @IonicPage({
   name: 'BleThermoDetailsPage'
@@ -44,18 +44,18 @@ export class BleThermoDetailsPage {
     this.peripheral = peripheral;
     this.setStatus('Connected to ' + (peripheral.name || peripheral.id));
 
-    this.showAlert("id", peripheral.id);
-    this.showAlert("service", peripheral.services[2]);
-    this.showAlert("characteristic", peripheral.characteristics[4].characteristic);
+    //this.showAlert("id", peripheral.id);
+    //this.showAlert("service", peripheral.services[2]);
+    //this.showAlert("characteristic", peripheral.characteristics[4].characteristic);
     
     // Subscribe for notifications when the temperature changes
-    this.ble.startNotification(this.peripheral.id, THERMOMETER_SERVICE, TEMPERATURE_CHARACTERISTIC).subscribe(
+    this.ble.startNotification(this.peripheral.id, peripheral.services[2], peripheral.characteristics[4].characteristic).subscribe(
       data => this.onTemperatureChange(data),
       () => this.showAlert('Unexpected Error', 'Failed to subscribe for temperature changes')
     )
 
     // Read the current value of the temperature characteristic
-    this.ble.read(this.peripheral.id, THERMOMETER_SERVICE, TEMPERATURE_CHARACTERISTIC).then(
+    this.ble.read(this.peripheral.id, peripheral.services[2], peripheral.characteristics[4].characteristic).then(
       data => this.onTemperatureChange(data),
       () => this.showAlert('Unexpected Error', 'Failed to get temperature')
     )
@@ -64,8 +64,15 @@ export class BleThermoDetailsPage {
 
   onTemperatureChange(buffer: ArrayBuffer) {
 
-    // Temperature is a 4 byte floating point value
-    var data = new Float32Array(buffer);
+    // var data = new Uint8Array(1);
+    // data[0] = 1;
+    // BLE.write(device_id, 'FF10', 'FF11', data.buffer);
+
+    // Temperature is a 1 byte floating point value
+    var data = new Uint8Array(buffer);
+    //this.showAlert("buffer", data[0]);
+    this.setStatus('Temperature: ' + data[0]);
+
     console.log(data[0]);
 
     this.ngZone.run(() => {
